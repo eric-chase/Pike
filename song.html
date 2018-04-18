@@ -1,0 +1,485 @@
+<html>
+
+<body>
+
+<div class="songs">
+<div class="division"></div>
+<style>
+.division {
+	border-left: 2px solid black;
+    height: 100%;
+    left: 0;
+    float: left;
+}
+</style>
+
+<div class="white_block1"></div>
+<style>
+.white_block1 {
+    width: 100%;
+    height: 12px;
+    background: white;
+}
+</style>
+
+<div class="orange_line"></div>
+<style>
+.orange_line {
+    width: 100%;
+    height: 2px;
+    background: #ff8049;
+}
+</style>
+
+<div class="white_block2"></div>
+<style>
+.white_block2 {
+    width: 100%;
+    height: 15px;
+    background: white;
+}
+</style>
+
+<div class="link_bar">
+{% if user is none %}
+    <a href="/"><font size="3">Home</font></a>
+{% else %}
+    <a href="/index.html/{{user}}"><font size="3">Home</font></a>
+    </br><font size = "2">Logged in as: {{user}}</font>
+{% endif %}
+</div>
+
+<style>
+.link_bar {
+  display: inline-block;
+  float: right;
+  padding-right: 3em;
+}
+</style>
+
+</br></br></br><div class="video">
+<iframe width="640" height="360" src={{link}} frameborder="0" allowfullscreen="">
+</iframe>
+</br></div>
+
+<style>
+.video {
+  padding-left: 1.3em;
+  display: inline-block;
+}
+</style>
+
+<div class="like_button">
+  <button type="button" 
+  {% if user is none %}
+  onclick="window.location.href='/like/song_id={{song_id}}&act_id={{act_id}}'"
+  {% else %}
+  onclick="window.location.href='/like/song_id={{song_id}}&act_id={{act_id}}&user={{user}}'"
+  {% endif %}>
+    <i class="fa fa-thumbs-up"></i>
+    Like
+    <span>{{likes}}</span>
+  </button>
+</div>
+
+<style>
+.like_button {
+  display: inline-block;
+  float: right;
+  padding-right: 8%;
+  padding-top: 37%;
+}
+
+.like_button button {
+  width: 90px;
+  height: 40px;
+  background: DodgerBlue;
+  border: 0;
+  font-size: .9rem;
+  font-family: Courier New;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.like_button button:hover {
+  color: #84d9ff;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.like_button button:hover span {
+  opacity: 1;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.like_button button:active {
+  -webkit-transform: scale(1.4);
+          transform: scale(1.4);
+}
+
+.like_button button span {
+  position: absolute;
+  top: -55px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #84d9ff;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  border-radius: 100px;
+  opacity: 0;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.like_button button span:hover {
+  opacity: 1;
+}
+
+.like_button button span:after {
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #84d9ff;
+}
+</style>
+
+</br></br></br></br>
+<div class="song_info">
+   <ul style="list-style-type:none">
+     <li><h5>Title: {{title}}</h5></li>
+     <li><h5>Length: {{length}}</h5></li>
+     <li><h5>Genre: {{genre}}</h5></li>
+     <li><h5>Number of Views: {{views}}</h5></li>
+   </ul>
+</div>
+
+<style>
+.song_info {
+  display: inline-block;
+  vertical-align: top;
+  width: 60%;
+}
+</style>
+
+<div class="add">
+{% if user %}
+  <form method="POST" id="a_form">
+    <select class="collection_drop" form="a_form" name="collection" onchange="window.location.href=this.value">
+    <option value="0">Add to collection:</option>
+    {% for collection in collections %}
+    <option value="/add_song/song_id={{song_id}}&act_id={{act_id}}&user={{user}}&c_name={{collection.name}}">{{collection.name}}</option>
+    {% endfor %}
+    </select>
+  </form>
+{% endif %}
+  
+    <div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Find related music: </button>
+      <div id="myDropdown" class="dropdown-content">
+        {% if user is none %}
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=1">1</a>
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=2">2</a>
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=3">3</a>
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=4">4</a>
+        {% else %}
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=1&user={{user}}">1</a>
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=2&user={{user}}">2</a>
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=3&user={{user}}">3</a>
+        <a href="/related/song_id={{song_id}}&act_id={{act_id}}&degrees=4&user={{user}}">4</a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.dropbtn {
+    background-color: #32CD32;
+    font-family: Arial;
+    color: white;
+    padding: 9px 12.5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #32CD32;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    left: 2px;
+    display: none;
+    position: absolute;
+    background-color: #32CD32;
+    min-width: 160px;
+    overflow: auto;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    font-size 16px;
+    font-family: Arial;
+    padding: 7px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}
+</style>
+
+<script>
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+</div>
+
+<style>
+.add {
+  display: inline-block;
+  float: right;
+  width: 30%;
+  padding-right: 5%;
+}
+
+.collection_drop {
+  width: 180px;
+  padding-top: 20%;
+}
+</style>
+
+<div><img class="bottom" src="https://image.ibb.co/c1ALAH/bottom_decal.jpg"></div>
+</div>
+
+<div class="messages">
+<div class="reviews">
+  <h4>Reviews</h4>
+  
+  {% for review in reviews %}
+  <div class="container">
+    <h5 style="width:100%;">{{review.username}}</h5>
+    </br>
+    <p class="text"><font size="3">{{review.text}}</font></p>
+    <span class="time-right"><font size="2">{{review.date_time}}</font></span>
+    <span class="rating-left"><font size="2">rating: {{review.rating}}/10</font></span>
+  </div>
+  {% endfor %}
+  
+  <style>
+  .text {
+    height: 50px;
+  }
+  </style>
+  
+</div>
+
+<div class="black_line"></div>
+<style>
+.black_line {
+    width: 100%;
+    height: 2px;
+    background: black;
+}
+</style>
+
+<div class = "post">
+<form method="POST" id="c_form"
+  {% if user is none %} 
+  action="/review/song_id={{song_id}}&act_id={{act_id}}"
+  {% else %}
+  action="/review/song_id={{song_id}}&act_id={{act_id}}&user={{user}}"
+  {% endif %}>
+  <div class="post_comment"><textarea form="c_form" name="comment"></textarea></div>
+  <div class="post_rating"><select form="c_form" name="rating" class="drop_down">
+  <option value="0">Rating:</option><option value="1">1</option>
+  <option value="2">2</option><option value="3">3</option><option value="4">4</option>
+  <option value="5">5</option><option value="6">6</option><option value="7">7</option>
+  <option value="8">8</option><option value="9">9</option><option value="10">10</option>
+  </select></div></br>
+  <input type="submit" class="button" value="Review">
+</form></div>
+</div>
+
+<style>
+.post_comment {
+  width: 80%;
+  height: 75%;
+  display: inline-block;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.post_rating {
+  right: 5px;
+  display: inline-block;
+  float: right;
+  right: 0;
+  padding-top: 1.5%;
+  padding-right: 4.5%;
+  width: 12%;
+}
+
+.button {
+  width: 80%;
+}
+
+.drop_down {
+  width: 100%;
+}
+</style>
+
+<style>
+body {
+  font-size: 13pt;
+  font-family: Courier New;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.songs {
+    height: 100%;
+    width: 60%;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: white;
+    overflow-x: hidden;
+    padding-top: 0px;
+    margin-left: 42.5%;
+}
+
+.post {
+    width: 42.5%;
+    margin-right: 60%;
+    top: 77%;
+    height: 25%;
+    position: fixed;
+    background-color: white;
+    overflow-x: hidden;
+    bottom: 10px;
+    left: 10px;
+}
+
+.messages {
+    width: 42.5%;
+    position: fixed;
+    overflow-x: hidden;
+    margin-right: 60%;
+    height: 100%;
+}
+
+.reviews {
+    width: 95%;
+    overflow-x: hidden;
+    margin-right: 60%;
+    height: 75%;
+    bottom: 25%;
+    padding: 0px 10px;
+}
+
+.reviews body {
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0 20px;
+}
+
+.reviews .container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.reviews .container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.reviews .container h5 {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.reviews .time-right {
+    float: right;
+    color: #aaa;
+}
+
+.reviews .rating-left {
+    float: left;
+    color: black;
+}
+
+.songs .bottom {
+    position: absolute;
+    bottom: 0;
+}
+</style>
+
+{% if error_1 %}
+  <script>
+  alert("Invalid review.");
+  </script>
+{% endif %}
+
+{% if error_2 %}
+  <script>
+  alert("Error: The song is already in that collection.");
+  </script>
+{% endif %}
+     
+</body>
+
+</html>

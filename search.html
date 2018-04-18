@@ -1,0 +1,199 @@
+<html>
+
+  <style>
+    body{ 
+      font-size: 13pt;
+      font-family: courier new;
+    }
+  </style>
+
+<body>
+  
+  <style>
+  html, body {
+      margin: 0;
+      padding: 0;
+  }
+  </style>
+  
+  <div class="white_block1"></div>
+  <style>
+  .white_block1 {
+      width: 100%;
+      height: 12px;
+      background: white;
+  }
+  </style>
+  
+  <div class="orange_line"></div>
+  <style>
+  .orange_line {
+      width: 100%;
+      height: 2px;
+      background: #ff8049;
+  }
+  </style>
+
+  <div class="white_block2"></div>
+  <style>
+  .white_block2 {
+      width: 100%;
+      height: 15px;
+      background: white;
+  }
+  </style>
+
+  <img class="Pike" src="https://image.ibb.co/fcAWHx/Pike.jpg">
+  
+  <style>
+  .Pike {
+      display: inline-block;
+      padding-left: 1em;
+  }
+  </style>
+  
+  <div class="link_bar">
+  {% if user is none %}
+      <a href="/"><font size="3">Home</font></a>
+  {% else %}
+      <a href="/index.html/{{user}}"><font size="3">Home</font></a>
+      </br><font size = "2">Logged in as: {{user}}</font>
+  {% endif %}
+  </div>
+  
+  <style>
+  .link_bar {
+      display: inline-block;
+      float: right;
+      padding-right: 1em;
+  }
+  </style>
+  
+  </br></br><div class="results">
+  {% if songs %}
+      <div class="song_results"><h3>Search by song:</h3></div>
+      <div>
+          <ul>
+          {% for song in songs %}
+            <li>
+              {% if user is none %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% else %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}&user={{user}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+      </div>
+  {% endif %}
+  {% if album_songs %}
+      <div class="album_results"><h3>Search by album:</h3></div>
+      <div>
+          <ul>
+          {% for song in album_songs %}
+            <li>
+              {% if user is none %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% else %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}&user={{user}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+      </div>
+  {% endif %}
+  {% if act_songs %}
+      <div class="act_results"><h3>Search by act:</h3></div>
+      <div>
+          <ul>
+          {% for song in act_songs %}
+            <li>
+              {% if user is none %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% else %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}&user={{user}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+      </div>
+  {% endif %}
+  {% if genre_songs %}
+      <div class="genre_results"><h3>Search by genre:</h3></div>
+      <div>
+          <ul>
+          {% for song in genre_songs %}
+            <li>
+              {% if user is none %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% else %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}&user={{user}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+      </div>
+  {% endif %}
+  {% if artist_songs %}
+      <div class="artist_results"><h3>Search by artist:</h3></div>
+      <div>
+          <ul>
+          {% for song in artist_songs %}
+            <li>
+              {% if user is none %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% else %}
+              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}&user={{user}}">{{song.title}}</a> by {{song.act_name}}</h3>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+      </div>
+  {% endif %}
+  </div>
+    
+  <style>
+  * {margin: 0;}
+  
+  .results {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  ul {
+    list-style-type: none;
+    width: 600px;
+  }
+
+  h3 {
+    font: bold 14px/1.5 Courier New;
+  }
+
+  li {
+    padding: 10px;
+    overflow: auto;
+  }
+
+  li:hover {
+    background: #eee;
+  }
+  </style>
+    
+  <div><img class="bottom" src="https://image.ibb.co/c1ALAH/bottom_decal.jpg"></div>
+  
+  <style>
+  .bottom {
+      position: absolute;
+      bottom: 0;
+  }
+  </style>
+
+{% if error %}
+  <script>
+  alert("Pike doesn't have any info on that search.");
+  </script>
+{% endif %}
+
+</body>
+
+</html>

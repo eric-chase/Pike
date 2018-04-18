@@ -1,0 +1,181 @@
+<html>
+
+<body>
+
+<style>
+  body{ 
+    font-size: 13pt;
+    font-family: courier new;
+  }
+</style>
+
+<div class="right_side">
+
+<div class="white_block1"></div>
+<style>
+.right_side .white_block1 {
+    width: 100%;
+    height: 12px;
+    background: white;
+    position: absolute;
+    top: 0;
+}
+</style>
+
+<div class="orange_line"></div>
+<style>
+.orange_line {
+    width: 100%;
+    height: 2px;
+    background: #ff8049;
+    position: absolute;
+    top: 12;
+}
+</style>
+
+<div class="link_bar">
+{% if user is none %}
+    <a href="/"><font size="3">Home</font></a>
+{% else %}
+    <a href="/index.html/{{user}}"><font size="3">Home</font></a>
+    </br><font size = "2">Logged in as: {{user}}</font>
+{% endif %}
+</div>
+
+<style>
+.link_bar {
+  display: inline-block;
+  padding-right: 1em;
+  padding-top: 26;
+  float: right;
+}
+</style>
+
+</br><div class="friends">
+    <div class="friend_results"><h3>Friends of {{user}}:</h3></div>
+    <div>
+        <ul>
+        {% for friend in friends %}
+          <li>
+            <h3><a href="/collections/user={{user}}&owner={{friend.username}}">{{friend.username}}</a></h3>
+          </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+    
+<style>
+* {margin: 0;}
+
+.friends {
+    padding-top: 10%;
+    width: 90%;
+    margin: 0 auto;
+}
+
+ul {
+  list-style-type: none;
+  width: 600px;
+}
+
+h3 {
+  font: bold 14px/1.5 Courier New;
+}
+
+li {
+  padding: 10px;
+  overflow: auto;
+}
+
+li:hover {
+  background: #eee;
+}
+</style>
+
+<div><img class="bottom" src="https://image.ibb.co/c1ALAH/bottom_decal.jpg"></div>
+</div>
+
+<div class="left_side">
+
+<img class="Pike" src="https://image.ibb.co/fcAWHx/Pike.jpg">
+  
+<style>
+.Pike {
+	display: inline-block;
+	padding-top: 29px;
+    padding-left: 1em;
+}
+</style>
+
+<div class="bar"><p>
+  <form method="POST" action="/add_friend/{{user}}">
+  <input type="text" name="friend" size="60"><input type="submit" value="Send">
+  <br/><font size="3">Send a friend request.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+  </font>
+</form></div>
+
+<style>
+.bar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+}
+</style>
+
+<div class="division"></div>
+<style>
+.division {
+	border-right: 2px solid black;
+    height: 100%;
+    right: 0;
+    display: inline-block;
+    float: right;
+}
+</style>
+
+<div>
+
+<style>
+body {
+  font-size: 13pt;
+  font-family: Courier New;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.right_side {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    margin-left: 50%;
+}
+
+.left_side {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    margin-right: 50%;
+    overflow-x: hidden;
+}
+
+.right_side .bottom {
+    position: absolute;
+    bottom: 0;
+}
+</style>
+
+{% if error %}
+    <script>
+    alert("Invalid friend request.");
+    </script>
+{% endif %}
+     
+</body>
+
+</html>

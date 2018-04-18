@@ -1,0 +1,106 @@
+<html>
+
+  <style>
+    body{ 
+      font-size: 13pt;
+      font-family: courier new;
+    }
+  </style>
+
+<body>
+  
+  <style>
+  html, body {
+      margin: 0;
+      padding: 0;
+  }
+  </style>
+  
+  <div class="white_block1"></div>
+  <style>
+  .white_block1 {
+      width: 100%;
+      height: 12px;
+      background: white;
+  }
+  </style>
+  
+  <div class="orange_line"></div>
+  <style>
+  .orange_line {
+      width: 100%;
+      height: 2px;
+      background: #ff8049;
+  }
+  </style>
+  
+  <div class="white_block2"></div>
+  <style>
+  .white_block2 {
+      width: 100%;
+      height: 15px;
+      background: white;
+  }
+  </style>
+
+  <img class="Pike" src="https://image.ibb.co/fcAWHx/Pike.jpg">
+  
+  <style>
+  .Pike {
+      display: inline-block;
+      padding-left: 1em;
+  }
+  </style>
+  
+  {% if user %}
+    <div class="link_bar">
+    <a href="/collections/{{user}}"><font size="3">Collections</font></a>|<a href="/friends/{{user}}"><font size="3">Friends</font></a>|<a href="/"><font size="3">Log Out</font></a>
+    </br><font size = "2">Logged in as: {{user}}</font>
+    </div>
+    
+    <style>
+    .link_bar {
+        display: inline-block;
+        float: right;
+        padding-right: 1em;
+    }
+    </style>
+  {% endif %}
+  
+  <p><br/></p>
+
+  <center><img src="https://image.ibb.co/mK26jc/Pike_title.jpg"></center>
+
+  <center><div class="search_bar"><p>
+  {% if user is none %}
+  <form method="POST" action="/search">
+  {% else %}
+  <form method="POST" action="/search/{{user}}">
+  {% endif %}
+  <input type="text" name="song_search" size="60"><input type="submit" value="Search">
+  {% if user is none %}
+    </br><font size="3">Have an account? Try
+    <a href="log_in.html">logging in</a>, or
+    <a href="register.html">register</a>.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+    </font>
+  {% endif %}
+  </form></div></center>
+    
+  <div><img class="bottom" src="https://image.ibb.co/c1ALAH/bottom_decal.jpg"></div>
+  
+  <style>
+  .bottom {
+      position: absolute;
+      bottom: 0;
+  }
+  </style>
+
+  {% if error %}
+      <script>
+      alert("Incorrect username or password!");
+      </script>
+  {% endif %}
+
+</body>
+
+</html>
