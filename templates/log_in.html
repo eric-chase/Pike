@@ -53,8 +53,7 @@
   </style>
   
   <div class="link_bar">
-      <a href="/index.html/{{user}}"><font size="3">Home</font></a>
-      </br><font size = "2">Logged in as: {{user}}</font>
+  <a href="/"><font size="3">Home</font></a>
   </div>
   
   <style>
@@ -64,44 +63,37 @@
       padding-right: 1em;
   }
   </style>
+
+  <div class="outer_border">
+  <div class="login_form"><p>
+  <form method="POST" action="/login"> Username:<input type="text" name="username" size="20"><br>
+  Password:<input type="text" name="password" size="20">
+  <input type="submit" value="Log In">
+  </form></div></div>
   
-  </br></br><div class="results">
-      <div class="song_results"><h3>Songs in {{collection}}:</h3></div>
-      <div>
-          <ul>
-          {% for song in songs %}
-            <li>
-              <h3><a href="/song/song_id={{song.song_id}}&act_id={{song.act_id}}&user={{user}}">{{song.title}}</a> by {{song.act_name}}</h3>
-            </li>
-          {% endfor %}
-          </ul>
-      </div>
-  </div>
-    
   <style>
-  * {margin: 0;}
+  .login_form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+  }
+  </style>
   
-  .results {
-    width: 50%;
-    margin: 0 auto;
-  }
-
-  ul {
-    list-style-type: none;
-    width: 600px;
-  }
-
-  h3 {
-    font: bold 14px/1.5 Courier New;
-  }
-
-  li {
-    padding: 10px;
-    overflow: auto;
-  }
-
-  li:hover {
-    background: #eee;
+  <style>
+  .outer_border {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 310px;
+    height: 113px;
+    border: 1px solid black;
+    padding: 25px;
+    box-shadow: 5px 5px 8px 2px #888888;
   }
   </style>
     
